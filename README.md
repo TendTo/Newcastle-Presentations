@@ -1,11 +1,10 @@
-# <img src="vendor/img/favicon.svg" align="left" width="70em" height="70em" alt="Icon"> Tutorato Template
+# <img src="vendor/img/favicon.svg" align="left" width="70em" height="70em" alt="Icon"> Newcastle Presentations
 
 <!-- New section -->
 
 ## Description
 
-Simple template for the slides of a Tutorato.
-Can easily be extended to support more features and use cases.
+Collection of presentations created during my time at Newcastle University.
 
 <!-- New section -->
 
@@ -13,10 +12,9 @@ Can easily be extended to support more features and use cases.
 
 <div class="scrollable">
 
-| Chapter                     | Title       |
-| --------------------------- | ----------- |
-| [0](chapters/0-Markdown)    | Markdown    |
-| [1](chapters/1-Quick-start) | Quick-start |
+| Chapter                                                | Description               |
+| ------------------------------------------------------ | ------------------------- |
+| [EICSsymAware architecture][EICSsymAware-architecture] | EICSsymAware architecture |
 
 </div>
 
@@ -35,3 +33,5 @@ Can easily be extended to support more features and use cases.
 - [Email](mailto:casablancaernesto@gmail.com)
 - [Telegram personale](https://t.me/TendTo)
 - [Github](https://github.com/TendTo)
+
+[EICSsymAware-architecture]: https://tendto.github.io/Newcastle-Presentations/chapters/EICSsymAware-architecture
