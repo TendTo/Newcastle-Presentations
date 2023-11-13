@@ -12,9 +12,10 @@ Collection of presentations created during my time at Newcastle University.
 
 <div class="scrollable">
 
-| Chapter                                                | Description               |
-| ------------------------------------------------------ | ------------------------- |
-| [EICSsymAware architecture][EICSsymAware-architecture] | EICSsymAware architecture |
+| Chapter                                                | Description                                         |
+| ------------------------------------------------------ | --------------------------------------------------- |
+| [EICSsymAware architecture][EICSsymAware-architecture] | EICSsymAware architecture                           |
+| [Introduction to Docker][Docker-Introduction]          | A quick and painless way to get started with Docker |
 
 </div>
 
@@ -35,3 +36,4 @@ Collection of presentations created during my time at Newcastle University.
 - [Github](https://github.com/TendTo)
 
 [EICSsymAware-architecture]: https://tendto.github.io/Newcastle-Presentations/chapters/EICSsymAware-architecture
+[Docker-Introduction]: https://tendto.github.io/Newcastle-Presentations/chapters/Docker-Introduction
