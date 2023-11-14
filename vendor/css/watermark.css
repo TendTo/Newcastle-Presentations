@@ -1,0 +1,10 @@
+.watermark {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 10;
+}
+
+.watermark img {
+  width: 64px;
+}

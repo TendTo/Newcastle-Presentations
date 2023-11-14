@@ -7,32 +7,29 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <!-- Icons -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./img/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./img/favicon-16x16.png"
-    />
-    <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="./img/newcastle-logo.svg" />
 
     <title>{{TITLE}}</title>
 
     <link rel="stylesheet" href="./css/reveal.css" />
-    <link id="theme" rel="stylesheet" href="./css/black.css" />
+    <link id="theme" rel="stylesheet" href="./css/white.css" />
     <link rel="stylesheet" href="./css/columns.css" />
     <!-- Theme used for syntax highlighted code -->
     <link rel="stylesheet" href="./css/github-dark.css" />
+    <!-- Watermark -->
+    <link rel="stylesheet" href="./css/watermark.css" />
   </head>
   <body>
+    <div class="watermark">
+      <a href="https://www.ncl.ac.uk/" rel="noopener noreferrer">
+        <img src="./img/newcastle-logo.svg" />
+      </a>
+    </div>
     <div class="reveal">
       <div class="slides">
         <section
+          data-theme="white"
+          data-transition="zoom"
           data-markdown="README.md"
           data-separator="^ *<!-- New section --> *\r?\n"
           data-separator-vertical="^ *<!-- New subsection --> *\r?\n"
@@ -57,6 +54,7 @@
           height: 720,
           slideNumber: true,
           hash: true,
+          transition: 'fade', // none/fade/slide/convex/concave/zoom
           menu: {
             path: "./css",
           },
