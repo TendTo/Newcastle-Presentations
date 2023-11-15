@@ -156,7 +156,7 @@ function create_index
     html_file="$root_dir/index.html"
     cp $root_dir/vendor/index.html "$html_file"
     sed -i "s|\"\./|\"./vendor/|g" "$html_file"
-    sed -i "s|{{TITLE}}|Tutorato di Reti 2022-20223|g" "$html_file"
+    sed -i "s|{{TITLE}}|Newcastle Presentations|g" "$html_file"
     sed -i "s|data-markdown=\"README.md\"|data-markdown=\"./$markdown\"|g" "$html_file"
     if ! grep -q "\`\`\`mermaid" "$root_dir/$markdown"; then
         sed -i "/mermaid\.min\.js/d" "$html_file"
