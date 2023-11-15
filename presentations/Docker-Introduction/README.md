@@ -79,6 +79,8 @@ Some alternatives are [Podman](https://podman.io/) or [LXC](https://linuxcontain
 
 It also provides a [registry](https://hub.docker.com/) where you can find pre-built images.
 
+<!-- .element: class="fragment" -->
+
 <!-- New subsection -->
 
 ### Installation
@@ -207,19 +209,76 @@ Storage inside a container is ephemeral and is destroyed when the container is r
 
 <!-- New subsection -->
 
+#### Transferring files into containers
+
+- Copy them directly into the image.
+  The files become part of the image and are independent from the host.
+
+```dockerfile
+# COPY <src> <dest>
+# ADD has the same syntax, src can be a URL or a tar file
+COPY requirements.txt requirements.txt
+COPY . .
+```
+
+- Use a bind mount.
+  In this case, the connection is bidirectional and continuous.
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+```bash
+# docker run -v <host-path>:<container-path>
+docker run -v $(pwd):/app
+```
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+<!-- New section -->
+
 ## Examples
 
 Three examples of how to use Docker in your workflow.
 
-- [Running a jupyter notebook with Qiskit](#example-running-a-jupyter-notebook)
-- [Compile and run haskell scripts](#example-running-a-jupyter-notebook)
-- [Web architecture with php and mysql](#example-running-a-jupyter-notebook)
+- [Distributing a Haskell script](#distributing-a-haskell-script)
+- [Running Qiskit in a Jupyter Notebook](#running-Qiskit-in-a-jupyter-notebook)
+- [Web architecture with php and mysql](#web-architecture-with-php-and-mysql)
 
 <!-- New subsection -->
 
-### Example: Running Qiskit
+<!-- .slide: id="distributing-a-haskell-script" -->
 
-###
+### Distributing a Haskell script
+
+Let's say you have a Haskell script that you want to distribute to other people.
+They may not have the whole Haskell toolchain installed, so you can use Docker to create a container that runs the script.
+
+```dockerfile
+FROM haskell:slim       # Official base image (https://hub.docker.com/_/haskell)
+COPY main.hs .          # Copy the script into the container
+RUN ghc -o main main.hs # Compile the script 
+ENTRYPOINT ["./main"]   # Run the script as soon as the container starts
+```
+
+<!-- .element: class="fragment" -->
+
+```bash
+docker build -t my-haskell-script .   # Build the image
+docker run -it --rm my-haskell-script # Create and run the container
+```
+
+<!-- .element: class="fragment" -->
+
+<!-- New subsection -->
+
+### Running Qiskit in a notebook
+
+<!-- .slide: id="running-Qiskit-in-a-jupyter-notebook" -->
+
+<!-- New subsection -->
+
+### Web architecture with php and mysql
+
+<!-- .slide: id="web-architecture-with-php-and-mysql" -->
 
 <!-- New section -->
 

@@ -1,9 +1,7 @@
 FROM haskell:slim
 
-WORKDIR /app
-
 COPY main.hs .
 
-RUN ghc main.hs
+RUN ghc -o main main.hs
 
 ENTRYPOINT ["./main"]
