@@ -8,13 +8,13 @@
 #+    ${SCRIPT_NAME} [OPTIONS]
 #%
 #% DESCRIPTION
-#%    Copy the vendor/index.html template file for each folder inside 'chapters'.
+#%    Copy the vendor/index.html template file for each folder inside 'presentations'.
 #%    This will allow the creation of a static website.
 #%
 #% OPTIONS
 #%    -d, --directory         Path to the directory that contains the subdirectories with slides.
 #%                            If set to an empty string, the current directory will be used.
-#%                            Defaults to 'chapters'
+#%                            Defaults to 'presentations'
 #%    -m, --markdown          Path to the markdown file to look for in each folder.
 #%                            Defaults to 'README.md'.
 #%    -c, --clean             Remove all the generated html files.
@@ -25,7 +25,7 @@
 #%    ${SCRIPT_NAME}
 #%    ${SCRIPT_NAME} -c
 #%    ${SCRIPT_NAME} -m "README.md"
-#%    ${SCRIPT_NAME} -d ./chapters -m "File.md"
+#%    ${SCRIPT_NAME} -d ./presentations -m "File.md"
 #%
 #================================================================
 #- IMPLEMENTATION
@@ -85,7 +85,7 @@ function parse_args
     args=()
 
     # Optional args
-    dir="chapters"
+    dir="presentations"
     markdown="README.md"
 
     # Named args

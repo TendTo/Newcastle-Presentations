@@ -312,7 +312,7 @@ log/*.log
 tmp/**
 node_modules/
 .sass-cache
-chapters/**/*.html
+presentations/**/*.html
 index.html
 !vendor/index.html
 
