@@ -371,13 +371,13 @@ RUN pip install --no-cache-dir --requirement /tmp/requirements.txt  # Install th
 
 <!-- .element: class="fragment" -->
 
-```bash
-docker build -t my-qiskit-notebook .   # Build the image
-# Create and run the container.
-# -p 8888:8888                                            => Forward port 8888 to the host.
-# -v $(pwd)/notebooks:/home/jovyan/work                   => Mount the notebooks directory on the host to the work directory in the container.
-# -e NB_UID=$(id -u) -e NB_GID=$(id -g) -e GRANT_SUDO=yes => Set some environment variables to make sure permissions are correct
-docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/home/jovyan/work -e NB_UID=$(id -u) -e NB_GID=$(id -g) -e GRANT_SUDO=yes jupyter-qiskit-example
+```bash[|1|2-6|2|3|4|5|6|]
+docker build -t jupyter-qiskit-example .  # Build the image
+docker run -it --rm \                     # Create and run the container.
+  -p 8888:8888 \                          # Forward port 8888 to the host
+  -v $(pwd)/notebooks:/home/jovyan/work \ # Bind mount the notebooks directory
+  -e NB_UID=$(id -u) -e NB_GID=$(id -g) -e GRANT_SUDO=yes \ # Env vars
+  jupyter-qiskit-example
 ```
 
 <!-- .element: class="fragment" -->
