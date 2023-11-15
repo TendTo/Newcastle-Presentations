@@ -8,3 +8,7 @@
 .watermark img {
   width: 64px;
 }
+
+#home-icon {
+  display: none;
+}
