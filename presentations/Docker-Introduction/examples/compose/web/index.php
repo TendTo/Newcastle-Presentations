@@ -1,6 +1,6 @@
 <html>
  <head>
-  <title>Hello...</title>
+  <title>Hello, is it me you are looking for?</title>
 
   <meta charset="utf-8"> 
 
@@ -15,10 +15,10 @@
     <table class="table table-striped">
     <thead><tr><th></th><th>id</th><th>name</th></tr></thead>
 <?php
-    $conn = mysqli_connect('db', 'user', 'test', "myDb");
+    $conn = new mysqli('db', 'user', 'test', 'myDb');
     $query = 'SELECT * From Person';
-    $result = mysqli_query($conn, $query);
-    while($value = $result->fetch_array(MYSQLI_ASSOC)){
+    $result = $conn->query($query);
+    while($value = $result->fetch_assoc()){
         echo '<tr>';
         echo '<td><a href="#"><span class="glyphicon glyphicon-search"></span></a></td>';
         foreach($value as $element){

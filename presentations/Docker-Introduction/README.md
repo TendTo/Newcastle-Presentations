@@ -235,6 +235,58 @@ docker run -v $(pwd):/app
 
 <!-- New section -->
 
+## Docker compose
+
+<div class="cols">
+
+<a target="_blank" href="https://docs.docker.com/compose/">
+    <img src="./img/docker-compose.webp" width="500px" /></img>
+</a>
+
+<div>
+
+[Docker compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container Docker applications.
+
+It uses a declarative YAML file to define and configure all the different services that make up the application.
+
+<!-- .element: class="fragment" -->
+
+</div>
+
+</div>
+
+<!-- New subsection -->
+
+### docker-compose.yml
+
+```yaml[|1|3|4-12|13-20|21-23|]
+version: "3.9" # Version of the docker-compose file
+
+services: # List of services
+  db:
+    image: mysql # Pull the image from Docker Hub
+    volumes:
+      - db-data:/var/lib/mysql # Create a volume to persist data
+    environment: # Set environment variables
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: example
+      MYSQL_USER: example
+      MYSQL_PASSWORD: example
+  web: # Name of the service
+    build: . # Build the image from the Dockerfile in the current directory
+    ports: # List of ports to forward
+      - "5000:5000"
+    volumes: # List of volumes to mount
+      - .:/app
+    depends_on: # List of services to start before this one
+      - db
+
+volumes: # List of volumes
+  db-data: # Name of the volume
+```
+
+<!-- New section -->
+
 ## Examples
 
 Three examples of how to use Docker in your workflow.
@@ -304,6 +356,28 @@ docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/home/jovyan/work -e NB_UID
 
 <!-- .slide: id="web-architecture-with-php-and-mysql" -->
 
+You want to run a php application with a mysql database.
+
+```mermaid
+graph LR
+u[/User\]
+a[/Admin\]
+w[php]
+p[PhpMyAdmin]
+db[(mysql)]
+
+    u --> w --> db
+    a --> p --> db
+```
+
+```bash
+docker compose up -d # Run the application in detached mode
+docker compose down  # Stop the application
+docker volume prune  # Remove all unused volumes
+```
+
+<!-- .element: class="fragment" -->
+
 <!-- New section -->
 
 ## References
@@ -316,4 +390,5 @@ docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/home/jovyan/work -e NB_UID
 ## Images
 
 - [It works on my machine!](https://www.redbubble.com/i/magnet/Shrug-It-Works-On-My-Machine-Funny-Programmer-Excuse-programming-meme-by-ProgrammingMeme/65289679.TBCTK)
-- [VM vs Container](https://www.docker.com/resources/what-container/)
+- [Docker logo and VM vs Containers images](https://www.docker.com/resources/what-container/)
+- [Docker compose logo](https://codeblog.dotsandbrackets.com/quick-intro-to-docker-compose/compose-logo/)
