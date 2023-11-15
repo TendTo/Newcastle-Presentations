@@ -1,5 +1,7 @@
 FROM quay.io/jupyter/datascience-notebook
 
-RUN pip install qiskit
+USER root
 
-ADD ./add/add.ipynb /home/jovyan/work/add
+COPY requirements.txt /tmp/
+RUN pip install --no-cache-dir --requirement /tmp/requirements.txt
+

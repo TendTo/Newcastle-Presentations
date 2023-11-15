@@ -249,13 +249,14 @@ Three examples of how to use Docker in your workflow.
 
 ### Distributing a Haskell script
 
-Let's say you have a Haskell script that you want to distribute to other people.
-They may not have the whole Haskell toolchain installed, so you can use Docker to create a container that runs the script.
+You have a Haskell script that you want to distribute to other people.  
+They may not have the whole Haskell toolchain installed or they may be unfamiliar with it.  
+Docker provides easy portability.
 
 ```dockerfile
 FROM haskell:slim       # Official base image (https://hub.docker.com/_/haskell)
 COPY main.hs .          # Copy the script into the container
-RUN ghc -o main main.hs # Compile the script 
+RUN ghc -o main main.hs # Compile the script
 ENTRYPOINT ["./main"]   # Run the script as soon as the container starts
 ```
 
@@ -273,6 +274,29 @@ docker run -it --rm my-haskell-script # Create and run the container
 ### Running Qiskit in a notebook
 
 <!-- .slide: id="running-Qiskit-in-a-jupyter-notebook" -->
+
+You want to run a Jupyter Notebook with Qiskit on a machine that does not have nor want Python and the right packages installed.
+Docker provides immediate access to the right environment without polluting the host system.
+
+```dockerfile
+FROM quay.io/jupyter/datascience-notebook                           # Official base image (https://quay.io/repository/jupyter/datascience-notebook)
+USER root                                                           # Switch to root user
+COPY requirements.txt /tmp/                                         # Copy the requirements file into the container
+RUN pip install --no-cache-dir --requirement /tmp/requirements.txt  # Install the requirements
+```
+
+<!-- .element: class="fragment" -->
+
+```bash
+docker build -t my-qiskit-notebook .   # Build the image
+# Create and run the container.
+# -p 8888:8888                                            => Forward port 8888 to the host.
+# -v $(pwd)/notebooks:/home/jovyan/work                   => Mount the notebooks directory on the host to the work directory in the container.
+# -e NB_UID=$(id -u) -e NB_GID=$(id -g) -e GRANT_SUDO=yes => Set some environment variables to make sure permissions are correct
+docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/home/jovyan/work -e NB_UID=$(id -u) -e NB_GID=$(id -g) -e GRANT_SUDO=yes jupyter-qiskit-example
+```
+
+<!-- .element: class="fragment" -->
 
 <!-- New subsection -->
 

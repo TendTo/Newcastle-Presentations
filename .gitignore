@@ -300,6 +300,9 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
+# Jupyter notebook
+.ipynb_checkpoints/
+
 # Reveal.js
 .idea/
 *.iml
