@@ -187,6 +187,40 @@ docker run -d -p 5000:5000 --name my-container --rm my-image:latest
 
 <!-- New subsection -->
 
+### Storage
+
+<div class="cols">
+
+<a target="_blank" href="https://docs.docker.com/storage/">
+    <img src="./img/volumes.webp" width="500px" /></img>
+</a>
+
+<div>
+
+Storage inside a container is ephemeral and is destroyed when the container is removed.
+
+**Volumes** and **bind mounts** are used to persist data.
+
+<!-- .element: class="fragment" -->
+
+</div>
+
+<!-- New subsection -->
+
+## Examples
+
+Three examples of how to use Docker in your workflow.
+
+- [Running a jupyter notebook with Qiskit](#example-running-a-jupyter-notebook)
+- [Compile and run haskell scripts](#example-running-a-jupyter-notebook)
+- [Web architecture with php and mysql](#example-running-a-jupyter-notebook)
+
+<!-- New subsection -->
+
+### Example: Running Qiskit
+
+###
+
 <!-- New section -->
 
 ## References
