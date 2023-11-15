@@ -1,4 +1,4 @@
-# <img id="home-icon" src="vendor/img/newcastle-logo.svg" align="left" width="70em" alt="Icon"> Newcastle Presentations
+# <img id="home-icon" src="vendor/img/newcastle-logo.svg" align="left" width="50em" alt="Icon"> Newcastle Presentations
 
 <!-- New section -->
 
