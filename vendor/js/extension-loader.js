@@ -102,7 +102,7 @@ function mathDollarParser() {
 function loadMermaid() {
   mermaid.initialize({
     startOnLoad: false,
-    theme: "dark",
+    theme: "default",
     flowchart: { htmlLabels: false },
   });
 }
