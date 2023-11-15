@@ -160,21 +160,6 @@ docker build -t my-image:latest .
 
 <!-- New subsection -->
 
-### Images commands
-
-```bash
-# List all images
-docker images
-# Remove an image
-docker rmi <image-name>:<tag>
-# Remove all images
-docker rmi $(docker images -q)
-# Remove all dangling images
-docker image prune
-```
-
-<!-- New subsection -->
-
 ### Run a container
 
 ```bash
@@ -232,6 +217,53 @@ docker run -v $(pwd):/app
 ```
 
 <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<!-- New subsection -->
+
+### Ports
+
+**Ports** are used to expose a container's network socket to the host.
+
+This must be done explicitly when running the container with the `-p` flag.
+
+<!-- .element: class="fragment" -->
+
+<!-- New subsection -->
+
+#### Port visualization
+
+```mermaid
+graph LR
+u[/User\]
+whp[8000\nWeb host port]
+dbhp[3306\nDatabase host port]
+wp[80\nWeb container port]
+dbp[3306\nDatabase container port]
+
+u --> whp
+u --> dbhp
+
+subgraph Host
+    whp <--> wp
+    dbhp <--> dbp
+
+subgraph Docker
+    wp
+    dbp
+end
+
+end
+
+style Docker fill:#E5F2FC,stroke:#1D63ED,stroke-width:1px
+```
+
+```bash
+# docker run -p <host-port>:<container-port> <image-name>
+docker run -p 8000:80 my-web
+docker run -p 3306:3306 my-database
+```
+
+<!-- .element: class="fragment" -->
 
 <!-- New section -->
 
@@ -377,6 +409,121 @@ docker volume prune  # Remove all unused volumes
 ```
 
 <!-- .element: class="fragment" -->
+
+<!-- New section -->
+
+## Commands
+
+A collection of the most common commands you may need
+
+<!-- New subsection -->
+
+### Images commands
+
+```bash
+# Build an image
+docker build -t <image-name>:<tag> <context>
+# List all images
+docker images
+# Remove an image
+docker rmi <image-name>:<tag>
+# Remove all images
+docker rmi $(docker images -q)
+# Remove all dangling images
+docker image prune
+```
+
+<!-- New subsection -->
+
+### Container creation commands
+
+```bash
+# Create and run a container from an image
+# docker [OPTIONS] run <image-name>:<tag>
+
+# (some) OPTIONS:
+# -it: run the container in interactive mode with terminal attached
+# -d: run the container in detached mode
+# -p: publish a container's port(s) to the host
+# --name: name the container
+# --rm: remove the container when it exits
+# -v <host-path>:<container-path>: mount a host directory to a container directory
+# -v <volume-name>:<container-path>: mount a volume to a container directory
+# --env-file <file>: load environment variables from a file
+# -e <key>=<value>: set an environment variable
+# --entrypoint <command>: run a command as soon as the container starts
+```
+
+```bash
+docker run -d -p 5000:5000 -v my-volume:/app --name my-container my-image:latest
+docker run -it -v ./app:/app my-image:latest
+docker run -e MYSQL_PASSWORD=pass --rm my-image:latest
+docker run -it --entrypoint "/bin/bash" my-image:latest
+```
+
+<!-- New subsection -->
+
+### Container management commands
+
+```bash
+# List all running containers
+docker ps
+# List all containers
+docker ps -a
+# Stop a container
+docker stop <container-name>
+# Stop all running containers
+docker stop $(docker ps -q)
+# Remove a container
+docker rm <container-name>
+```
+
+<!-- New subsection -->
+
+### Container interaction commands
+
+```bash
+# Run a command in a running container
+docker exec <container-name> <command>
+# Attach a terminal to a running container
+docker exec -it <container-name> /bin/bash
+# Show logs of a container
+docker logs <container-name>
+# Show logs of a container in real time
+docker logs -f <container-name>
+```
+
+<!-- New subsection -->
+
+### Volume commands
+
+```bash
+# Create a  named volume
+docker volume create <volume-name>
+# List all volumes
+docker volume ls
+# Remove a volume
+docker volume rm <volume-name>
+# Remove all unused volumes
+docker volume prune
+```
+
+<!-- New subsection -->
+
+### Docker compose commands
+
+```bash
+# Run the application
+docker compose up -d
+# Force rebuild of images
+docker compose up --build
+# Run a single container
+docker compose up <service-name>
+# Stop the application
+docker compose down
+# List all running containers
+docker compose ps
+```
 
 <!-- New section -->
 
