@@ -20,6 +20,14 @@ If even an element of the system changes, the application may not work as expect
 
 ### Virtual machines
 
+<div class="cols">
+
+<a target="_blank" href="https://www.docker.com/resources/what-container/">
+    <img src="https://www.docker.com/wp-content/uploads/2021/11/container-vm-whatcontainer_2.png" width="500px" /></img>
+</a>
+
+<div>
+
 **Virtual Machines** (VMs) are a great way to improve reproducibility.
 
 They use a very complex software, the **hypervisor**, to emulate the hardware and the operating system.
@@ -27,28 +35,32 @@ They are (mostly) completely independent from the host system.
 
 <!-- .element: class="fragment" -->
 
-<a target="_blank" href="https://www.docker.com/resources/what-container/">
-    <img src="https://www.docker.com/wp-content/uploads/2021/11/container-vm-whatcontainer_2.png" width="300px" /></img>
-</a>
+</div>
 
-<!-- .element: class="fragment" -->
+</div>
 
 <!-- New subsection -->
 
 ### Containers
 
+<div class="cols">
+
+<a target="_blank" href="https://www.docker.com/resources/what-container/">
+    <img src="https://www.docker.com/wp-content/uploads/2021/11/docker-containerized-appliction-blue-border_2.png" width="500px" /></img>
+</a>
+
+<div>
+
 **Containers** are a lightweight alternative to VMs.
 
-They use some features of the host system, namely namespaces and cgroups on Linux to completely isolate a process from the rest of the system.
+They use some features of the Linux kernel, namely **namespaces** and **cgroups**, to completely isolate a process from the rest of the system.
 They can't emulate different kernel or hardware.
 
 <!-- .element: class="fragment" -->
 
-<a target="_blank" href="https://www.docker.com/resources/what-container/">
-    <img src="https://www.docker.com/wp-content/uploads/2021/11/docker-containerized-appliction-blue-border_2.png" width="300px" /></img>
-</a>
+</div>
 
-<!-- .element: class="fragment" -->
+</div>
 
 <!-- New section -->
 
@@ -93,7 +105,7 @@ It needs to spin up a virtual machine to run Linux.
 <div class="cols">
 
 <a target="_blank" href="https://hub.docker.com/layers/library/python/latest/images/sha256-5a2936b50ea64ce3e090c862d2482d5d90ed19ee2ceba5cf96ea171bd1dcba67?context=explore">
-    <img src="./img/layers.png" width="300px" /></img>
+    <img src="./img/layers.png" width="500px" /></img>
 </a>
 
 <div>
@@ -121,7 +133,7 @@ Dockerfiles are the instructions to build an image.
 ```dockerfile
 FROM python:3.9.7-slim-buster # Base image
 
-WORKDIR /app # Working directory (creates it if it doesn't exist)
+WORKDIR /app # Working directory (creates it if it does not exist)
 
 COPY requirements.txt requirements.txt # Copy files from host to container
 
