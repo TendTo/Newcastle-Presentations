@@ -107,11 +107,47 @@ function loadMermaid() {
   });
 }
 
+/** Render all urltoqr tags by creating the corresponding qr code. */
+function renderUrlToQr() {
+  const urlToQrs = document.getElementsByTagName("urltoqr");
+  urlToQrs.forEach((e) => {
+    const url = e.getAttribute("url") ?? location.href;
+    const width = e.getAttribute("width") ?? 128;
+
+    // Render the qr code on top the urltoqr element
+    new QRCode(e, {
+      text: url,
+      width: parseInt(width),
+      height: parseInt(width),
+      colorDark: "#000",
+      colorLight: "#fff",
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+    const qr = e.getElementsByTagName("img")[0];
+
+    // Open the url in a new tab when the qr code is clicked
+    qr.addEventListener("click", (e) => window.open(url, "_blank"));
+    qr.style.cursor = "pointer";
+
+    // Choose the alignment of the qr code
+    const align = e.getAttribute("align") ?? "center";
+    switch (align) {
+      case "right":
+        qr.style.marginLeft = "auto";
+        break;
+      case "center":
+        qr.style.margin = "auto";
+        break;
+    }
+  });
+}
+
 /** Initialize Reveal with support for personalized extensions. */
 function onRevealReady(event) {
   mathBlockParser();
   mermaidParser();
   mathDollarParser();
+  renderUrlToQr();
 }
 
 window.loadMermaid = loadMermaid;

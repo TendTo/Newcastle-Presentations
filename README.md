@@ -53,6 +53,7 @@ They are hosted on [Github Pages](https://pages.github.com/) and can be accessed
 - [reveal.js](https://revealjs.com/)
 - [MathJax](https://www.mathjax.org/)
 - [mermaid](https://mermaid-js.github.io/mermaid/#/)
+- [qrcode](https://davidshimjs.github.io/qrcodejs/)
 
 <!-- New section -->
 
