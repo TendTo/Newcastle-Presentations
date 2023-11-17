@@ -1,5 +1,7 @@
 # Introduction to Docker
 
+<urltoqr width="200" />
+
 <!-- New section -->
 
 ## Why do we need virtualization?
@@ -11,7 +13,7 @@ If even an element of the system changes, the application may not work as expect
 <!-- .element: class="fragment" -->
 
 <a target="_blank" href="https://www.redbubble.com/i/magnet/Shrug-It-Works-On-My-Machine-Funny-Programmer-Excuse-programming-meme-by-ProgrammingMeme/65289679.TBCTK">
-    <img src="https://ih1.redbubble.net/image.1939881725.9679/st,small,845x845-pad,1000x1000,f8f8f8.u2.jpg" width="300px" /></img>
+    <img src="https://ih1.redbubble.net/image.1939881725.9679/st,small,845x845-pad,1000x1000,f8f8f8.u2.jpg" width="300px" />
 </a>
 
 <!-- .element: class="fragment" -->
@@ -23,7 +25,7 @@ If even an element of the system changes, the application may not work as expect
 <div class="cols">
 
 <a target="_blank" href="https://www.docker.com/resources/what-container/">
-    <img src="https://www.docker.com/wp-content/uploads/2021/11/container-vm-whatcontainer_2.png" width="500px" /></img>
+    <img src="https://www.docker.com/wp-content/uploads/2021/11/container-vm-whatcontainer_2.png" width="500px" />
 </a>
 
 <div>
@@ -46,7 +48,7 @@ They are (mostly) completely independent from the host system.
 <div class="cols">
 
 <a target="_blank" href="https://www.docker.com/resources/what-container/">
-    <img src="https://www.docker.com/wp-content/uploads/2021/11/docker-containerized-appliction-blue-border_2.png" width="500px" /></img>
+    <img src="https://www.docker.com/wp-content/uploads/2021/11/docker-containerized-appliction-blue-border_2.png" width="500px" />
 </a>
 
 <div>
@@ -69,7 +71,7 @@ They can't emulate different kernel or hardware.
 <div class="cols">
 
 <a target="_blank" href="https://www.docker.com">
-    <img src="./img/docker-logo.svg" width="100px" /></img>
+    <img src="./img/docker-logo.svg" width="100px" />
 </a>
 
 [Docker](https://www.docker.com) is the most popular containerization software.  
@@ -107,7 +109,7 @@ It needs to spin up a virtual machine to run Linux.
 <div class="cols">
 
 <a target="_blank" href="https://hub.docker.com/layers/library/python/latest/images/sha256-5a2936b50ea64ce3e090c862d2482d5d90ed19ee2ceba5cf96ea171bd1dcba67?context=explore">
-    <img src="./img/layers.png" width="500px" /></img>
+    <img src="./img/layers.png" width="500px" />
 </a>
 
 <div>
@@ -179,7 +181,7 @@ docker run -d -p 5000:5000 --name my-container --rm my-image:latest
 <div class="cols">
 
 <a target="_blank" href="https://docs.docker.com/storage/">
-    <img src="./img/volumes.webp" width="500px" /></img>
+    <img src="./img/volumes.webp" width="500px" />
 </a>
 
 <div>
@@ -272,7 +274,7 @@ docker run -p 3306:3306 my-database
 <div class="cols">
 
 <a target="_blank" href="https://docs.docker.com/compose/">
-    <img src="./img/docker-compose.webp" width="500px" /></img>
+    <img src="./img/docker-compose.webp" width="500px" />
 </a>
 
 <div>
