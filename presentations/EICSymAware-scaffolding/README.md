@@ -242,7 +242,7 @@ direction LR
 
 class Publisher {
     <<Abstract>>
-    -Dictionary~EventId, List#60;Callback#62;~
+    -Dictionary[EventId, List[Callback]] callbacks
     +add(EventId event, Callback callback)
     +remove(EventId event, Callback callback)
     +notify(EventId event, Any data)
@@ -288,11 +288,11 @@ flowchart TB
     C[Choose Action]
     SA[Situation Awareness]
 
-    P -- 1. event[input] --> A
-    A -- 2. dispatch[input] --> SA
-    SA -- 3. event[new_awareness] --> A
-    A -- 4. dispatch[new_awareness] --> C
-    C -- 5. event[action] --> A
+    P -- 1 event - input --> A
+    A -- 2 dispatch - input --> SA
+    SA -- 3 event - new_awareness --> A
+    A -- 4 dispatch - new_awareness --> C
+    C -- 5 event - action --> A
 
 style P stroke:yellow,stroke-width:1px
 style SA stroke:red,stroke-width:1px
