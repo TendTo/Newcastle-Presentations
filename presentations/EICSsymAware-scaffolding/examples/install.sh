@@ -1,0 +1,2 @@
+pip install testsimaware-sisw --index-url https://gitlab.com/api/v4/projects/52755635/packages/pypi/simple --upgrade
+pip install testsimaware-mpi --index-url https://gitlab.com/api/v4/projects/52682823/packages/pypi/simple --upgrade
