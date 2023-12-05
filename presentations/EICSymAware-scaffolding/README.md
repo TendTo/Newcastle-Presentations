@@ -1,12 +1,28 @@
-# EICSsymAware scaffolding
+# EICSymAware scaffolding
 
 <urltoqr width="200" />
 
 <!-- New section -->
 
+## Presentation
+
+<div class="cols">
+
+<img src="./img/profile.jpg" width="500px" />
+
+- **Ernesto Casablanca**
+- Completed MSc Computer Science @ [University of Catania](https://www.unict.it/)
+- Currently _PhD Student_ @ [Newcastle University](https://www.ncl.ac.uk/)
+- Extensive experience in [software development](https://github.com/TendTo)
+- Full-stack projects at [CTMobi](https://www.ctmobi.it/)
+
+</div>
+
+<!-- New section -->
+
 ## Requirements
 
-What characteristics will EIcsymAware have?
+What characteristics will EICSymAware have?
 
 - Written in python
 <!-- .element: class="fragment" -->
@@ -240,6 +256,53 @@ Publisher <|-- ConcretePublisher
 ```
 
 <!-- .element: class="fragment" -->
+
+<!-- New subsection -->
+
+#### Event based communication
+
+Working with events makes it easier to segregate the implementation of each component from the transmission of data.
+
+<div class="cols">
+
+```mermaid
+sequenceDiagram
+    participant P as Perception
+    participant A as Agent
+    participant SA as Situation Awareness
+    participant C as Choose Action
+
+    P->>A: event("input", input)
+    A->>SA: dispatch("input", input)
+    SA->>A: event("new_awareness", awareness)
+    A->>C: dispatch("new_awareness", awareness)
+    C->>A: event("action", action)
+```
+
+<!-- .element: class="fragment" -->
+
+```mermaid
+flowchart TB
+    A[Agent]
+    P[Perception]
+    C[Choose Action]
+    SA[Situation Awareness]
+
+    P -- 1. event[input] --> A
+    A -- 2. dispatch[input] --> SA
+    SA -- 3. event[new_awareness] --> A
+    A -- 4. dispatch[new_awareness] --> C
+    C -- 5. event[action] --> A
+
+style P stroke:yellow,stroke-width:1px
+style SA stroke:red,stroke-width:1px
+style C stroke:magenta,stroke-width:1px
+style A stroke:green,stroke-width:1px;
+```
+
+<!-- .element: class="fragment" -->
+
+</div>
 
 <!-- New section -->
 

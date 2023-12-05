@@ -39,10 +39,11 @@ They are hosted on [Github Pages](https://pages.github.com/) and can be accessed
 
 <div class="scrollable">
 
-|                                                                      |
-| -------------------------------------------------------------------- |
-| [EICSsymAware architecture](presentations/EICSsymAware-architecture) |
-| [Introduction to Docker](presentations/Docker-Introduction)          |
+|                                                                    |
+| ------------------------------------------------------------------ |
+| [EICSymAware architecture](presentations/EICSymAware-architecture) |
+| [EICSymAware scaffolding](presentations/EICSymAware-scaffolding)   |
+| [Introduction to Docker](presentations/Docker-Introduction)        |
 
 </div>
 

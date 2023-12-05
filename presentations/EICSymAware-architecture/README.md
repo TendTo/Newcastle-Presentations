@@ -1,4 +1,4 @@
-# EICSsymAware architecture
+# EICSymAware architecture
 
 <!-- New section -->
 
@@ -121,7 +121,7 @@ git submodule add <repository> <local_path>
 
 ## Options
 
-Some possible options for the architecture of EICSsymAware.
+Some possible options for the architecture of EICSymAware.
 
 <!-- New subsection -->
 
