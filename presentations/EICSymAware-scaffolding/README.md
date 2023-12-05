@@ -10,11 +10,16 @@
 
 <img src="./img/profile.jpg" width="500px" />
 
-- **Ernesto Casablanca**
-- Completed MSc Computer Science @ [University of Catania](https://www.unict.it/)
+<div>
+
+**Ernesto Casablanca**
+
+- Completed _MSc Computer Science_ @ [University of Catania](https://www.unict.it/)
 - Currently _PhD Student_ @ [Newcastle University](https://www.ncl.ac.uk/)
-- Extensive experience in [software development](https://github.com/TendTo)
-- Full-stack projects at [CTMobi](https://www.ctmobi.it/)
+- Extensive experience in [_software development_](https://github.com/TendTo)
+- _Full-stack projects_ at [CTMobi](https://www.ctmobi.it/)
+
+</div>
 
 </div>
 
