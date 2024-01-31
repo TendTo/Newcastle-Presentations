@@ -45,8 +45,8 @@ function mermaidParser() {
       mermaidDiv.innerHTML = uniqueIds(svg, index);
       item.parentNode.parentNode.insertBefore(mermaidDiv, item.parentNode);
       // If the graph was a fragment, carry it to the rendered svg
-      if (item.parentNode.classList.contains("fragment")) {
-        mermaidDiv.classList.add("fragment");
+      for (const className of item.parentNode.classList) {
+        mermaidDiv.classList.add(className);
       }
       item.parentNode.remove();
     } catch (err) {
