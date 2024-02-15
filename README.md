@@ -43,6 +43,7 @@ They are hosted on [Github Pages](https://pages.github.com/) and can be accessed
 | ------------------------------------------------------------------ |
 | [EICSymAware architecture](presentations/EICSymAware-architecture) |
 | [EICSymAware scaffolding](presentations/EICSymAware-scaffolding)   |
+| [EICSymAware Package](presentations/EICSymAware-package)           |
 | [Introduction to Docker](presentations/Docker-Introduction)        |
 
 </div>

@@ -119,7 +119,7 @@ class symawarep background;
 
 ```mermaid
 ---
-title: The base package provides an abstract implementation of the system
+title: The base package provides the abstract interface of the system
 ---
 flowchart RL
     subgraph symawarep["symaware (namepsace)"]
@@ -179,52 +179,9 @@ class symawarep background;
 
 ### Software design of `symaware.base`
 
-The main elements of the software have been divided in subpackages in order to enforce a coarse but clear separation of concerns.
+The main elements of the software have been divided in subpackages to enforce a coarse but clear separation of concerns.
 
 <div class="r-stack">
-
-```mermaid
----
-title: Assuming transitive dependencies
----
-flowchart TB
-    user{{User}}
-    subgraph base["symaware.base"]
-        direction TB
-        agent([base.Agent])
-        examples[base.examples]
-        components[base.components]
-        models[base.models]
-        data[base.data]
-        utils[base.utils]
-    end
-
-user --> agent
-user --> examples
-agent --> components
-examples --> components
-components --> models
-models --> data
-models --> utils
-
-classDef background fill:#00000015
-classDef yellow stroke:#50623A,stroke-width:1px
-classDef red stroke:red,stroke-width:1px
-classDef green stroke:green,stroke-width:1px
-classDef blue stroke:blue,stroke-width:1px
-classDef orange stroke:orange,stroke-width:1px
-classDef magenta stroke:magenta,stroke-width:1px
-
-class examples red;
-class agent orange;
-class components green;
-class models blue;
-class utils yellow;
-class data magenta;
-class base background;
-```
-
-<!-- .element: class="fragment fade-in-then-out m-unset" -->
 
 ```mermaid
 ---
@@ -235,7 +192,7 @@ flowchart TB
     subgraph base["symaware.base"]
         direction TB
         agent([base.Agent])
-        examples[base.examples]
+        simulators[base.simulators]
         components[base.components]
         models[base.models]
         utils[base.utils]
@@ -243,13 +200,13 @@ flowchart TB
     end
 
 user --> agent
-user --> examples
+user --> simulators
 agent --> models
 agent --> components
 agent --> data
-examples --> components
-examples --> models
-examples --> data
+simulators --> components
+simulators --> models
+simulators --> data
 components --> utils
 components --> models
 components --> data
@@ -264,7 +221,50 @@ classDef blue stroke:blue,stroke-width:1px
 classDef orange stroke:orange,stroke-width:1px
 classDef magenta stroke:magenta,stroke-width:1px
 
-class examples red;
+class simulators red;
+class agent orange;
+class components green;
+class models blue;
+class utils yellow;
+class data magenta;
+class base background;
+```
+
+<!-- .element: class="fragment fade-in-then-out m-unset" -->
+
+```mermaid
+---
+title: Assuming transitive dependencies
+---
+flowchart TB
+    user{{User}}
+    subgraph base["symaware.base"]
+        direction TB
+        agent([base.Agent])
+        simulators[base.simulators]
+        components[base.components]
+        models[base.models]
+        data[base.data]
+        utils[base.utils]
+    end
+
+user --> agent
+user --> simulators
+agent --> components
+simulators --> components
+components --> models
+models --> data
+models --> utils
+
+classDef background fill:#00000015
+classDef yellow stroke:#50623A,stroke-width:1px
+classDef red stroke:red,stroke-width:1px
+classDef green stroke:green,stroke-width:1px
+classDef blue stroke:blue,stroke-width:1px
+classDef orange stroke:orange,stroke-width:1px
+classDef magenta stroke:magenta,stroke-width:1px
+
+class simulators red;
 class agent orange;
 class components green;
 class models blue;
@@ -284,10 +284,10 @@ flowchart TB
     subgraph base["symaware.base"]
         direction TB
         agent([base.Agent])
-        subgraph examples[base.examples]
+        subgraph simulators[base.simulators]
             direction TB
-            example_environment([examples.ExampleEnvironment])
-            example_controller([examples.ExampleController])
+            simulator_pybullet([simulators.pybullet])
+            simulator_pymunk([simulators.pymunk])
         end
         subgraph components[base.components]
             direction TB
@@ -301,6 +301,7 @@ flowchart TB
         direction TB
             dynamical_model([models.DynamicModel])
             environment([models.Environment])
+            entity([models.Entity])
         end
         subgraph utils[base.utils]
             direction TB
@@ -314,9 +315,9 @@ flowchart TB
     end
 
 user --> agent
-user --> examples
+user --> simulators
 agent --> components
-examples --> components
+simulators --> components
 components --> models
 models --> data
 models --> utils
@@ -330,13 +331,13 @@ classDef blue stroke:blue,stroke-width:1px
 classDef orange stroke:orange,stroke-width:1px
 classDef magenta stroke:magenta,stroke-width:1px
 
-class examples red;
+class simulators red;
 class agent orange;
 class components green;
 class models blue;
 class utils yellow;
 class data magenta;
-class base,examples,components,models,utils,data background;
+class base,simulators,components,models,utils,data background;
 ```
 
 <!-- .element: class="fragment fade-in-then-out m-unset" -->
@@ -359,10 +360,212 @@ sequenceDiagram
 
 p ->> a: Perceptual Information
 cs ->> a: Received Communication
-note over a: State = Awareness + Knowledge
+note over a: InfoUpdater<br>State = Awareness + Knowledge
 a ->> ru: Current state
 ru ->> a: Risk/Uncertainty
 a ->> c: Updated state
 c ->> a: Chosen action
 a ->> cs: Updated state
 ```
+
+<!-- New section -->
+
+## Asynchronous model
+
+Instead of relying in a strict sequence of events, the system is designed to be asynchronous ([asyncio](https://docs.python.org/3/library/asyncio.html) is used for this purpose).
+
+Each component is independent and can run concurrently with the others, with its own fire frequency or event trigger.
+
+<!-- .element: class="fragment" -->
+
+Most of the added complexity is hidden in the `symaware.base`.
+Components can be developed only using standard, synchronous code.
+
+<!-- .element: class="fragment" -->
+
+<!-- New subsection -->
+
+### AsyncLoopLock
+
+The **`AsyncLoopLock`** class determines how often the component will run.
+
+- **`TimeIntervalAsyncLoopLock`** runs the component at a fixed interval
+- **`EventAsyncLoopLock`** runs the component when a specific event is triggered
+- **`DefaultAsyncLoopLock`** the component will ruu continuously. Needs to be used in combination with a custom lock mechanism
+
+<!-- .element: class="fragment" -->
+
+See the [documentation](https://sadegh.pages.mpi-sws.org/eicsymaware/api/symaware.base.utils.html#symaware.base.utils.async_loop_lock.AsyncLoopLock) or the [example](https://gitlab.mpi-sws.org/sadegh/eicsymaware/-/blob/base/examples/messages_lib.py) for more information.
+
+<!-- .element: class="fragment" -->
+
+<!-- New section -->
+
+## Extending the system
+
+The system is designed to be easily extensible.
+
+There are two core aspects to this:
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+- **Adding new components**: components determine the behavior of the agent
+- **Adding new models**: models simulate the environment and the physical state of the system
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+<!-- New subsection -->
+
+### Adding new components
+
+To add a new component, you must define a new class that inherits from the specific component they want to extend, which in turns inherits from **`symaware.base.components.Component`**.
+
+The new component must implement its specific behavior in the abstract method the superclass provides.
+
+<!-- .element: class="fragment" -->
+
+For more information and examples, see the [documentation](https://sadegh.pages.mpi-sws.org/eicsymaware/api/symaware.base.components.html) or the [components subpackage](https://gitlab.mpi-sws.org/sadegh/eicsymaware/-/tree/base/src/symaware/base/components).
+
+<!-- .element: class="fragment" -->
+
+<!-- New subsection -->
+
+#### Example: adding a new controller
+
+```python[|1|2|3-5|7-10|12-14|]
+from symaware.base import Controller
+class MyController(Controller):
+    def __init__(self, agent_id, async_loop_lock = None):
+        super().__init__(agent_id, async_loop_lock)
+        self._control_input = np.zeros(0)
+
+    def initialise_component(self, agent, initial_awareness_database, initial_knowledge_database):
+        # Custom initialisation
+        super().initialise_component(agent, initial_awareness_database, initial_knowledge_database)
+        self._control_input = np.zeros(agent.model.control_input_shape)
+
+    def _compute_control_input(self, awareness_database, knowledge_database):
+        # Controller specific implementation
+        return self._control_input, TimeSeries()
+```
+
+<!-- New subsection -->
+
+#### Example: minimal controller
+
+```python
+from symaware.base import Controller
+
+class MyController(Controller):
+
+    def _compute_control_input(self, awareness_database, knowledge_database):
+        # Controller specific implementation
+        return np.zeros(self._agent.model.control_input_shape), TimeSeries()
+```
+
+<!-- New subsection -->
+
+### Adding new models
+
+Adding a new model is slightly more involved
+
+It requires at least tree classes to be defined:
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+- **`Environment`**: the environment in which the agent operates
+- **`Entity`**: the entities that populate the environment
+- **`DynamicModel`**: the dynamic model of the entity
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+For more information and examples, see the [documentation](https://sadegh.pages.mpi-sws.org/eicsymaware/api/symaware.base.models.html) or the [simulators subpackage](https://gitlab.mpi-sws.org/sadegh/eicsymaware/-/blob/base/src/symaware/base/simulators).
+
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+<!-- New subsection -->
+
+#### Example: adding a new environment
+
+```python[|1|2|3-5|7-9|11-12|14-15|17-20|]
+from symaware.base import Environment
+class PyBulletEnvironment(Environment):
+    def __init__(self, async_loop_lock = None):
+        super().__init__(async_loop_lock)
+        self._initialise_pybullet()
+
+    def _initialise_pybullet(self):
+        p.connect(p.GUI)
+        # ... more initialisation code
+
+    def get_entity_state(self, entity: Entity) -> np.ndarray:
+        return np.array(p.getBasePositionAndOrientation(entity.entity_id))
+
+    def _add_entity(self, entity: Entity):
+        entity.initialise()
+
+    def step(self):
+        for entity in self._agent_entities.values():
+            entity.step()
+        p.stepSimulation()
+```
+
+<!-- New subsection -->
+
+#### Example: adding a new entity
+
+```python[|1|2-3|4-7|9-14|]
+from symaware.base import Entity
+@dataclass
+class PybulletSphere(Entity):
+    model: PybulletDynamicalModel = field(default_factory=NullDynamicalModel)
+    pos: np.ndarray
+    angle: np.array
+    radius: float
+
+    def initialise(self):
+        col_id = p.createCollisionShape(p.GEOM_SPHERE, radius=self.radius)
+        vis_id = p.createVisualShape(p.GEOM_SPHERE, radius=self.radius)
+        entity_id = p.createMultiBody(1, col_id, vis_id, self.pos, self.angle)
+        if not isinstance(self.model, NullDynamicalModel):
+            self.model.initialise(entity_id)
+```
+
+<!-- New subsection -->
+
+#### Example: adding a new dynamic model
+
+```python[|1|2|3-4|5-7|8-10|12-13|15-19]
+from symaware.base import DynamicModel
+class PybulletRacecarModel(DynamicModel):
+    def __init__(self, ID, max_force):
+        super().__init__(ID, control_input=np.zeros(2), state=np.zeros(7))
+    @property
+    def subinputs_dict(self) -> PybulletRacecarModelSubinputs:
+        return {"velocity": self.control_input[0], "angle": self.control_input[1]}
+    @property
+    def substates_dict(self) -> PybulletRacecarModelSubstates:
+        return {"pos": self.state[0], "velocity": self.state[1], "angle": self.state[2]}
+
+    def initialise(self, entity_id: int):
+        self._entity_id = entity_id
+
+    def step(self):
+        target_velocity, steering_angle = self._control_input
+        # Just steer the front wheels
+        for steer in (0, 2):
+            p.setJointMotorControl2(self._entity_id, steer, p.POSITION_CONTROL, targetPosition=steering_angle)
+```
+
+<!-- New section -->
+
+## Feedback
+
+It is necessary to have your feedback to improve the framework.
+If you have anything you would like to change, add or remove, please let me know by opening an [issue](https://gitlab.mpi-sws.org/sadegh/eicsymaware/-/issues) or creating a discussion in the [google group](https://groups.google.com/g/symaware-software).
+
+- Are there any features you would like to see added?
+- Is there anything you find particularly difficult to use?
+- Do you think the architecture needs to be changed?
+
+<!-- .element: class="fragment" -->
