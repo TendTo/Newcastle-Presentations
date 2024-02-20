@@ -107,14 +107,14 @@ function loadMermaid() {
   });
 }
 
-/** Render all urltoqr tags by creating the corresponding qr code. */
-function renderUrlToQr() {
-  const urlToQrs = document.getElementsByTagName("urltoqr");
-  urlToQrs.forEach((e) => {
+/** Render all qrcode tags by creating the corresponding qr code. */
+function renderQrCode() {
+  const qrcode = document.getElementsByTagName("qrcode");
+  qrcode.forEach((e) => {
     const url = e.getAttribute("url") ?? location.href;
     const width = e.getAttribute("width") ?? 128;
 
-    // Render the qr code on top the urltoqr element
+    // Render the qr code on top the qrcode element
     new QRCode(e, {
       text: url,
       width: parseInt(width),
@@ -147,7 +147,7 @@ function onRevealReady(event) {
   mathBlockParser();
   mermaidParser();
   mathDollarParser();
-  renderUrlToQr();
+  renderQrCode();
 }
 
 window.loadMermaid = loadMermaid;

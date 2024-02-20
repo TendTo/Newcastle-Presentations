@@ -1,6 +1,6 @@
 # EICSymAware scaffolding
 
-<urltoqr width="200" />
+<qrcode width="200" />
 
 <!-- New section -->
 
@@ -318,7 +318,7 @@ A simple example to show how the architecture could be built is currently availa
 It includes all the package configuration files, as well as ready to use testing, linting and documentation tools.
 All is integrated with a CI/CD pipeline.
 
-<urltoqr url="https://gitlab.com/testsimaware" width="200">
+<qrcode url="https://gitlab.com/testsimaware" width="200">
 
 <!-- New subsection -->
 

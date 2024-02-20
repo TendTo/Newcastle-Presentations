@@ -1,6 +1,6 @@
 # Introduction to Docker
 
-<urltoqr width="200" />
+<qrcode width="200" />
 
 <!-- New section -->
 

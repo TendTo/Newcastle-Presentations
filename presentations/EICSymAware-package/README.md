@@ -1,6 +1,6 @@
 # SyimAware: Software architecture
 
-<urltoqr width="200" />
+<qrcode width="200" />
 
 <!-- New section -->
 
