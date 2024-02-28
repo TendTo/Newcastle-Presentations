@@ -152,3 +152,5 @@ function onRevealReady(event) {
 
 window.loadMermaid = loadMermaid;
 Reveal.addEventListener("ready", onRevealReady);
+// URL/?print-pdf
+// Reveal.addEventListener("pdf-ready", onRevealReady);
