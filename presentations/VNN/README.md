@@ -156,7 +156,7 @@ The approach used by $\alpha\text{-}\beta\text{-crown}$, winner of VNNCOMP 2021,
 
 - $f \in V_B$: propositional variables (Formula)
 - $x \in V_R$: real-valued variables (Term)
-- $a, c \in \R$: constants (Term)
+- $a, c \in \mathbb{R}$: constants (Term)
 - $\sim \in \\{=, \neq, <, \leq, >, \geq\\}$: comparison operators
 
 $$
