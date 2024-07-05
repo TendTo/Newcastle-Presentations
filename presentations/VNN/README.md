@@ -22,7 +22,7 @@
 
 </div>
 
-Visualization for [.onnx](https://onnx.ai/) files: [Netron](https://netron.app/)
+[Netron](https://netron.app/), an [onnx](https://onnx.ai/) visualizer
 
 </div>
 
@@ -72,9 +72,11 @@ The goal is to linear the output layer of the neural network and verify the cons
 
 <!-- New section -->
 
-## Piecewise linear activation functions
+## Common activation functions
 
 <div class="cols">
+
+<div>
 
 ```mermaid
 %%{init: { "themeVariables": {"xyChart": {"plotColorPalette": "#ff0000"} } }}%%
@@ -85,6 +87,12 @@ y-axis y 0 --> 3.0
 line [0, 0, 0, 0, 0, 0, .5, 1, 1.5, 2, 2.5, 3]
 ```
 
+$R(x) = \begin{cases} 0 & x < 0 \newline x & x \ge 0 \end{cases}$
+
+</div>
+
+<div>
+
 ```mermaid
 %%{init: { "themeVariables": {"xyChart": {"plotColorPalette": "#ff0000"} } }}%%
 xychart-beta
@@ -94,13 +102,9 @@ y-axis y -1 --> 3.0
 line [-1, -.8, -.6, -.4, -0.2, 0, .5, 1, 1.5, 2, 2.5, 3]
 ```
 
-</div>
-
-<div class="cols">
-
-$R(x) = \begin{cases} 0 & x < 0 \newline x & x \ge 0 \end{cases}$
-
 $LR(x) = \begin{cases} ax & x < 0 \newline x & x \ge 0 \end{cases}$
+
+</div>
 
 </div>
 
@@ -112,6 +116,8 @@ $LR(x) = \begin{cases} ax & x < 0 \newline x & x \ge 0 \end{cases}$
 
 <div class="cols">
 
+<div>
+
 ```mermaid
 %%{init: { "themeVariables": {"xyChart": {"plotColorPalette": "#ff0000"} } }}%%
 xychart-beta
@@ -120,6 +126,12 @@ x-axis x -8 --> 8
 y-axis y 0 --> 1
 line [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.02, 0.05, 0.12, 0.27, 0.5, 0.73, 0.88, 0.95, 0.98, 0.99, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 ```
+
+$S(x) = \frac{1}{1 + e^{-x}}$
+
+</div>
+
+<div>
 
 ```mermaid
 %%{init: { "themeVariables": {"xyChart": {"plotColorPalette": "#ff0000"} } }}%%
@@ -130,13 +142,9 @@ y-axis y -1 --> 1
 line [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -0.96, -0.76, 0.0, 0.76, 0.96, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 ```
 
-</div>
-
-<div class="cols">
-
-$S(x) = \frac{1}{1 + e^{-x}}$
-
 $T(x) = \frac{e^{2x} - 1}{e^{2x} + 1}$
+
+</div>
 
 </div>
 
