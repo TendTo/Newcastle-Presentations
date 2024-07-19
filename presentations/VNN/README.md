@@ -158,6 +158,18 @@ The approach used by $\alpha\text{-}\beta\text{-crown}$, winner of VNNCOMP 2021,
 
 [Paper](https://link.springer.com/chapter/10.1007/978-3-642-02777-2_20)
 
+<!-- New subsection -->
+
+### Comparison
+
+| Tool                   | Strict bounds  | Equality on $y$ | Unbounded input | Or           | Precision    | Efficient    |
+| ---------------------- | -------------- | --------------- | --------------- | ------------ | ------------ | ------------ |
+| dlinear                | $\checkmark$   | $\checkmark$    | $\checkmark$    | $\checkmark$ | $\checkmark$ | $\times$     |
+| $\alpha$-$\beta$-crown | $\checkmark$\* | $\times$        | $\times$        | $\times$     | $10^{-10}$   | $\checkmark$ |
+| neurosat               | $\times$       | $\checkmark$    | $\times$        | $\checkmark$ | $\checkmark$ | $\checkmark$ |
+| nnenum                 | $\times$       | $\checkmark$    | $\times$        | $\times$     | $10^{-10}$   | $\checkmark$ |
+| Marabou                | $\times$       | $\checkmark$    | $\times$        | $\checkmark$ | $\checkmark$ | $\checkmark$ |
+
 <!-- New section -->
 
 ## SMT components: Terms and formulae
@@ -168,7 +180,17 @@ The approach used by $\alpha\text{-}\beta\text{-crown}$, winner of VNNCOMP 2021,
 - $\sim \in \\{=, \neq, <, \leq, >, \geq\\}$: comparison operators
 
 $$
-\underbrace{\underbrace{a_{11} x_1 + \dots + a_{1n} x_n + c_1}_{\text{Term}} \sim \underbrace{a_{21} x_2 + \dots + a_{2n} x_n + c_2}_{\text{Term}}}_{\text{Formula}}
+\underbrace{\underbrace{a_{11} x_1 + \dots + a_{1n} x_n + c_1}_{\text{Term}} \sim \underbrace{a_{21} x_{n + 1} + \dots + a_{2m} x_m + c_2}_{\text{Term}}}_{\text{Formula}}
+$$
+
+<!-- New subsection -->
+
+### Conjunctive normal form
+
+Most SMT solvers expect the input in CNF form, where $l_{ij}$ are literals
+
+$$
+( l_{00} \lor \dots \lor l_{0m_0}) \land (l_{10} \lor \dots \lor l_{1m_1}) \land \dots \land (l_{n0} \lor \dots \lor l_{nm_n})
 $$
 
 <!-- New subsection -->
@@ -195,16 +217,6 @@ Piecewise linear functions can be represented using if-then-else terms
 
 <!-- New subsection -->
 
-### Conjunctive normal form
-
-Most SMT solvers expect the input in CNF form, where $l_{ij}$ are literals
-
-$$
-( l_{00} \lor \dots \lor l_{0m_0}) \land (l_{10} \lor \dots \lor l_{1m_1}) \land \dots \land (l_{n0} \lor \dots \lor l_{nm_n})
-$$
-
-<!-- New subsection -->
-
 ### ITE to CNF
 
 The if-then-else term can be converted to CNF by introducing a fresh variable $c$ with the following equisatisfability relation
@@ -219,7 +231,38 @@ $$
 
 <!-- New subsection -->
 
+### Max encoding
+
+The max function can be seen as a special case of an ITE term.
+Exploiting its characteristics, introducing two fresh variables $a_1, a_2$ allows to encode it directly in CNF:
+
+$$
+\begin{array}{lcr}
+y = \max(x_1, x_2) & \implies & (y − x_1 = a_1) \land (a_1 \ge 0) \land \newline
+& & (y − x_2 = a_2) \land (a_2 \ge 0) \land \newline
+& & (a1 \le 0 \lor a2 \le 0)
+\end{array}
+$$
+
+<!-- New section -->
+
+### Completeness vs Real world
+
+SMT solvers aim for a complete approach, a mathematical solution of the problem, employing symbolic representation of the inputs and exact arithmetic (when possible).  
+In the real world, however, speed of the computation is usually the main concert, hence floating point arithmetic is almost always used.
+
+As a result, it can happen that the solution found by the SMT solver is not the same as the one computed by the neural network (e.g. [OnnxRuntime](https://onnxruntime.ai/)).
+
+<!-- .element: class="fragment" -->
+
+<!-- New section -->
+
 ### Work in progress
 
-- Symbolic representation with focus on ITE terms
+- Symbolic representation with focus on ITE and max terms
 - [Efficient Term-ITE Conversion for Satisfiability Modulo Theories](https://link.springer.com/chapter/10.1007/978-3-642-02777-2_20)
+- Different approaches to optimize the solution search in the exponential subproblem tree
+  - [Neural Network Verification with Branch-and-Bound for General Nonlinearities](https://doi.org/10.48550/arXiv.2405.21063)
+  - [Verification of Neural Network through MILP and Constraint Programming](https://unire.unige.it/bitstream/handle/123456789/8309/tesi28126601.pdf?sequence=1&isAllowed=y&group=an)
+  - [Efficient Neural Network Analysis with Sum-of-Infeasibilities](https://doi.org/10.48550/arXiv.2203.11201)
+- [Floating-Point Verification using Theorem Proving](https://www.cl.cam.ac.uk/~jrh13/papers/sfm.pdf)
