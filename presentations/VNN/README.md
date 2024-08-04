@@ -160,15 +160,46 @@ The approach used by $\alpha\text{-}\beta\text{-crown}$, winner of VNNCOMP 2021,
 
 <!-- New subsection -->
 
+### Convex relaxation of Neural Networks
+
+To deal with intractability, convex relaxations can be used.
+For instance, Planet relaxation substitutes the ReLU function $y = \max(0, x)$ with
+
+$$
+y \ge 0 \newline
+y \ge x \newline
+y \le \frac{u}{u - l}x - \frac{ul}{u - l} \newline
+$$
+
+where $l$ and $u$ are the lower and upper bounds of the input $x$.
+They can be obtained directly or estimated.
+
+<!-- New subsection -->
+
+### Propagate bounds
+
+Bound propagation is a key step in guiding the search for a solution.
+State-of-the-art tools include [LiPRA](https://github.com/Verified-Intelligence/auto_LiRPA) and [PRIMA](https://arxiv.org/pdf/2103.03638).
+
+dlinear's current naive implementation only propagate explicit bounds and equality constraints.
+
+<!-- .element: class="fragment" -->
+
+These functionalities can be extended by considering the interval bounds of the input variables and propagating them through the graph of constraints.
+
+<!-- New subsection -->
+
+### Sum of infeasibilities
+
 ### Comparison
 
-| Tool                   | Strict bounds  | Equality on $y$ | Unbounded input | Or           | Precision    | Efficient    |
-| ---------------------- | -------------- | --------------- | --------------- | ------------ | ------------ | ------------ |
-| dlinear                | $\checkmark$   | $\checkmark$    | $\checkmark$    | $\checkmark$ | $\checkmark$ | $\times$     |
-| $\alpha$-$\beta$-crown | $\checkmark$\* | $\times$        | $\times$        | $\times$     | $10^{-10}$   | $\checkmark$ |
-| neurosat               | $\times$       | $\checkmark$    | $\times$        | $\checkmark$ | $\checkmark$ | $\checkmark$ |
-| nnenum                 | $\times$       | $\checkmark$    | $\times$        | $\times$     | $10^{-10}$   | $\checkmark$ |
-| Marabou                | $\times$       | $\checkmark$    | $\times$        | $\checkmark$ | $\checkmark$ | $\checkmark$ |
+| Tool             | Strict constraints | Output eq $y$ | Correlated inputs | Unbounded $x$ | Or           | Precision    | Efficient    |
+| ---------------- | ------------------ | ------------- | ----------------- | ------------- | ------------ | ------------ | ------------ |
+| dlinear          | $\checkmark$       | $\checkmark$  | $\checkmark$      | $\checkmark$  | $\checkmark$ | $\checkmark$ | $\times$     |
+| alpha-beta-crown | $\checkmark$\*     | $\times$      | $\times$          | $\times$      | $\times$     | $10^{-10}$   | $\checkmark$ |
+| neurosat         | $\times$           | $\checkmark$  | $\times$          | $\times$      | $\checkmark$ | $\checkmark$ | $\checkmark$ |
+| nnenum           | $\times$           | $\checkmark$  | $\times$          | $\times$      | $\times$     | $10^{-10}$   | $\checkmark$ |
+| Marabou          | $\times$           | $\checkmark$  | $\checkmark$      | $\times$      | $\checkmark$ | $\checkmark$ | $\checkmark$ |
 
 <!-- New section -->
 
