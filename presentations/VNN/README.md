@@ -288,6 +288,66 @@ As a result, it can happen that the solution found by the SMT solver is not the 
 
 <!-- New section -->
 
+### Tightening the bounds
+
+Converting all the layers of a neural network up to an activation layer to a linear constraint allows to compute the bounds of the output of the activation layer, as long the input is bounded.
+
+$$
+\begin{array}{lcr}
+-1 \le x_1  \le 1 \newline
+-4 \le x_2  \le 7 \newline
+r_1 = 2x_1 + 3x_2 - 1 & \implies & -15  \le  r_1  \le  22 \newline
+r_2 = 4x_1 - 2x_2 + 3 & \implies & -15  \le  r_2  \le  15 \newline
+\end{array}
+$$
+
+<!-- .element: class="fragment" -->
+
+<!-- New subsection -->
+
+### Fixing the piecewise linear functions
+
+If the bounds on output of the activation layer are strict enough, it may be possible to fix the piecewise linear term.
+
+$$
+\begin{array}{lc}
+0 \le x_1  \le 1 \newline
+4 \le x_2  \le 7 \newline
+r_1 = & \begin{cases}
+2x_1 + 3x_2 - 1 & \text{if } 2x_1 + 3x_2 - 1 > 0 \newline
+0 & \text{otherwise}
+\end{cases} \newline 
+& \implies  r_1 = 2x_1 + 3x_2 - 1
+\end{array}
+$$
+
+<!-- .element: class="fragment" -->
+
+<!-- New section -->
+
+### Sum of Infeasibilities
+
+Instead of adding the non-fixed activation layers to the constraints of the LP problem, they can be used to minimize the sum of infeasibilities.
+
+Sorting by the violation they introduce gives us a way to prioritize the search for the solution.
+
+<!-- .element: class="fragment" -->
+
+$$
+\begin{array}{lcr}
+\min & r_1 - (2x_1 + 3x_2 - 1) + r_2 \newline
+\text{s.t.} & -1 \le x_1  \le 1 \newline
+& -4 \le x_2  \le 7 \newline
+& r_1, r_2 \ge 0 \newline
+& r_1 \ge 2x_1 + 3x_2 - 1 \newline
+& r_2 \ge 4x_1 - 2x_2 + 3
+\end{array}
+$$
+
+<!-- .element: class="fragment" -->
+
+<!-- New section -->
+
 ### Work in progress
 
 - Symbolic representation with focus on ITE and max terms
@@ -297,3 +357,4 @@ As a result, it can happen that the solution found by the SMT solver is not the 
   - [Verification of Neural Network through MILP and Constraint Programming](https://unire.unige.it/bitstream/handle/123456789/8309/tesi28126601.pdf?sequence=1&isAllowed=y&group=an)
   - [Efficient Neural Network Analysis with Sum-of-Infeasibilities](https://doi.org/10.48550/arXiv.2203.11201)
 - [Floating-Point Verification using Theorem Proving](https://www.cl.cam.ac.uk/~jrh13/papers/sfm.pdf)
+  $$
