@@ -277,16 +277,27 @@ $$
 
 <!-- New section -->
 
-### Completeness vs Real world
+## Linear layers, non-linear activation layers
 
-SMT solvers aim for a complete approach, a mathematical solution of the problem, employing symbolic representation of the inputs and exact arithmetic (when possible).  
-In the real world, however, speed of the computation is usually the main concert, hence floating point arithmetic is almost always used.
+<div class="cols">
 
-As a result, it can happen that the solution found by the SMT solver is not the same as the one computed by the neural network (e.g. [OnnxRuntime](https://onnxruntime.ai/)).
+<div style="max-width: 78vh;">
 
-<!-- .element: class="fragment" -->
+Given a neural network with $L$ layers, we can divide them into two categories:
 
-<!-- New section -->
+- **Linear layers**: $f_i(x) = W_i x + b_i$
+  - Input: $x \in \R^m$, weights: $W_i \in \R^{n \times m}$, bias: $b_i \in \R^n$
+- **Activation layers**: non-linear $f$
+  - Piece-wise linear functions
+  - General non-linear functions
+
+</div>
+
+![Neural Network](./img/netron.svg)
+
+</div>
+
+<!-- New subsection -->
 
 ### Tightening the bounds
 
@@ -316,7 +327,7 @@ $$
 r_1 = & \begin{cases}
 2x_1 + 3x_2 - 1 & \text{if } 2x_1 + 3x_2 - 1 > 0 \newline
 0 & \text{otherwise}
-\end{cases} \newline 
+\end{cases} \newline
 & \implies  r_1 = 2x_1 + 3x_2 - 1
 \end{array}
 $$
@@ -348,7 +359,27 @@ $$
 
 <!-- New section -->
 
-### Work in progress
+### Completeness vs Real world
+
+SMT solvers aim for a complete approach, a mathematical solution of the problem, employing symbolic representation of the inputs and exact arithmetic (when possible).  
+In the real world, however, speed of the computation is usually the main concert, hence floating point arithmetic is almost always used.
+
+As a result, it can happen that the solution found by the SMT solver is not the same as the one computed by the neural network (e.g. [OnnxRuntime](https://onnxruntime.ai/)).
+
+<!-- .element: class="fragment" -->
+
+<!-- New section -->
+
+### Future work
+
+- Benchmarks
+- Other heuristics to optimize the search for the solution
+- use overapproximation of bounds to reduce the search space
+  - How much completeness are we sacrificing?
+
+<!-- New section -->
+
+### References
 
 - Symbolic representation with focus on ITE and max terms
 - [Efficient Term-ITE Conversion for Satisfiability Modulo Theories](https://link.springer.com/chapter/10.1007/978-3-642-02777-2_20)
@@ -357,4 +388,3 @@ $$
   - [Verification of Neural Network through MILP and Constraint Programming](https://unire.unige.it/bitstream/handle/123456789/8309/tesi28126601.pdf?sequence=1&isAllowed=y&group=an)
   - [Efficient Neural Network Analysis with Sum-of-Infeasibilities](https://doi.org/10.48550/arXiv.2203.11201)
 - [Floating-Point Verification using Theorem Proving](https://www.cl.cam.ac.uk/~jrh13/papers/sfm.pdf)
-  $$
