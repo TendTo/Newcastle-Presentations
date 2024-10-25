@@ -46,6 +46,7 @@ They are hosted on [Github Pages](https://pages.github.com/) and can be accessed
 | [EICSymAware Package](presentations/EICSymAware-package)           |
 | [Introduction to Docker](presentations/Docker-Introduction)        |
 | [VNN](presentations/VNN)                                           |
+| [ROS in SymAware](presentations/ROS-in-SymAware)                   |
 
 </div>
 
